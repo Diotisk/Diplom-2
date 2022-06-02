@@ -36,6 +36,22 @@ public class OrderOperations {
 
     }
 
+    public Response createOrderWithAuthorization(String accessToken) {
+
+        IngredientOperations operations = new IngredientOperations();
+        ArrayList<String> ingredients = operations.getSeveralIngredients();
+        CreateOrderRequest createOrderRequest = new CreateOrderRequest(ingredients);
+
+        Response response = given()
+                .header("Content-Type", "application/json")
+                .header("Authorization", accessToken)
+                .body(createOrderRequest)
+                .post("/api/orders");
+
+        return response;
+
+    }
+
     public Response createOrderWithInvalidIngredients() {
 
         ArrayList<String> ingredients = new ArrayList<>();
