@@ -29,4 +29,27 @@ public class CreateOrderTest {
 
     }
 
+    @Test
+    public void createOrderWithInvalidIngredientsNegativeTest() {
+
+        OrderOperations operations = new OrderOperations();
+        Response response = operations.createOrderWithInvalidIngredients();
+
+        assertEquals(500, response.getStatusCode());
+
+    }
+
+    @Test
+    public void createOrderWithoutIngredientsNegativeTest() {
+
+        OrderOperations operations = new OrderOperations();
+        Response response = operations.createOrderWithoutIngredients();
+
+        assertEquals(400, response.getStatusCode());
+        assertFalse(response.getBody().as(CreateOrderResponse.class).isSuccess());
+        assertEquals("Ingredient ids must be provided",
+                response.getBody().as(CreateOrderResponse.class).getMessage());
+
+    }
+
 }
