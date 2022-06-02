@@ -1,6 +1,6 @@
 package praktikum.models;
 
-public class CreateUserResponse {
+public class CreateOrLoginUserResponse {
 
     private boolean success;
     private User user;
@@ -8,7 +8,7 @@ public class CreateUserResponse {
     private String refreshToken;
     private String message;
 
-    public CreateUserResponse(boolean success, User user, String accessToken,
+    public CreateOrLoginUserResponse(boolean success, User user, String accessToken,
                                            String refreshToken) {
         this.success = success;
         this.user = user;
@@ -16,7 +16,7 @@ public class CreateUserResponse {
         this.refreshToken = refreshToken;
     }
 
-    public CreateUserResponse(boolean success, String message) {
+    public CreateOrLoginUserResponse(boolean success, String message) {
         this.success = success;
         this.message = message;
     }

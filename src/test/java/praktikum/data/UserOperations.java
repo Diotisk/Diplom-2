@@ -87,4 +87,15 @@ public class UserOperations {
 
     }
 
+    public Response login(User userLoginCredentials) {
+
+        Response response = given()
+                .header("Content-Type", "application/json")
+                .body(userLoginCredentials)
+                .post("/api/auth/login");
+
+        return response;
+
+    }
+
 }

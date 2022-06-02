@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import org.junit.Before;
 import org.junit.Test;
 import praktikum.data.UserOperations;
-import praktikum.models.CreateUserResponse;
+import praktikum.models.CreateOrLoginUserResponse;
 import praktikum.models.User;
 
 import java.util.Locale;
@@ -28,14 +28,14 @@ public class CreateUserTest {
         Response actualResponse = operationCreateUser.createUser(newUser);
 
         assertEquals(200, actualResponse.getStatusCode());
-        assertTrue(actualResponse.getBody().as(CreateUserResponse.class).isSuccess());
-        assertEquals(newUser.getName(), actualResponse.getBody().as(CreateUserResponse.class)
+        assertTrue(actualResponse.getBody().as(CreateOrLoginUserResponse.class).isSuccess());
+        assertEquals(newUser.getName(), actualResponse.getBody().as(CreateOrLoginUserResponse.class)
                 .getUser().getName());
         assertEquals(newUser.getEmail().toLowerCase(Locale.ROOT), actualResponse.getBody()
-                .as(CreateUserResponse.class)
+                .as(CreateOrLoginUserResponse.class)
                 .getUser().getEmail());
 
-        operationCreateUser.deleteUser(actualResponse.as(CreateUserResponse.class).getAccessToken());
+        operationCreateUser.deleteUser(actualResponse.as(CreateOrLoginUserResponse.class).getAccessToken());
 
     }
 
@@ -48,10 +48,10 @@ public class CreateUserTest {
         Response actualResponseAfterSecondAttempt = operationCreateUser.createUser(newUser);
 
         assertEquals(403, actualResponseAfterSecondAttempt.getStatusCode());
-        assertEquals("User already exists", actualResponseAfterSecondAttempt.as(CreateUserResponse.class)
+        assertEquals("User already exists", actualResponseAfterSecondAttempt.as(CreateOrLoginUserResponse.class)
                 .getMessage());
 
-        operationCreateUser.deleteUser(actualResponseAfterFirstAttempt.as(CreateUserResponse.class).getAccessToken());
+        operationCreateUser.deleteUser(actualResponseAfterFirstAttempt.as(CreateOrLoginUserResponse.class).getAccessToken());
 
     }
 

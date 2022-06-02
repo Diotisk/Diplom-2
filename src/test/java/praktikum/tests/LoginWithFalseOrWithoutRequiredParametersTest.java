@@ -2,6 +2,7 @@ package praktikum.tests;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,17 +11,17 @@ import praktikum.data.UserOperations;
 import praktikum.models.CreateOrLoginUserResponse;
 import praktikum.models.User;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class CreateUserWithoutRequiredParametersTest {
+public class LoginWithFalseOrWithoutRequiredParametersTest {
 
     private final User userCredentials;
     private final long expectedStatusCode;
     private final boolean expectedSuccessStatus;
     private final String expectedResponseMessage;
 
-    public CreateUserWithoutRequiredParametersTest(User userCredentials,
+    public LoginWithFalseOrWithoutRequiredParametersTest(User userCredentials,
                                                    long expectedStatusCode,
                                                    boolean expectedSuccessStatus,
                                                    String expectedResponseMessage) {
@@ -33,12 +34,15 @@ public class CreateUserWithoutRequiredParametersTest {
     @Parameterized.Parameters(name = "Тестовые данные: {0} {1} {2} {3}")
     public static Object[] getTestData() {
         return new Object[][]{
-                {new UserOperations().generateUserDataWithEmptyEmail(), 403,
-                        false, "Email, password and name are required fields"},
-                {new UserOperations().generateUserDataWithEmptyName(), 403,
-                        false, "Email, password and name are required fields"},
-                {new UserOperations().generateUserDataWithEmptyPassword(), 403,
-                        false, "Email, password and name are required fields"},
+                {new User("", RandomStringUtils.randomNumeric(5)), 401,
+                        false, "email or password are incorrect"},
+                {new User(RandomStringUtils.randomAlphabetic(3) + "@"
+                        + RandomStringUtils.randomAlphabetic(5) + ".com", ""), 401,
+                        false, "email or password are incorrect"},
+                {new User(RandomStringUtils.randomAlphabetic(3) + "@"
+                        + RandomStringUtils.randomAlphabetic(5) + ".com",
+                        RandomStringUtils.randomNumeric(5)), 401,
+                        false, "email or password are incorrect"},
         };
     }
 
@@ -48,11 +52,11 @@ public class CreateUserWithoutRequiredParametersTest {
     }
 
     @Test
-    public void createUserWithoutRequiredParametersNegativeTest() {
+    public void loginWithFalseOrWithoutRequiredParametersNegativeTest() {
 
-        UserOperations createUserWithoutRequiredParameters = new UserOperations();
+        UserOperations operations = new UserOperations();
 
-        Response actualResponse = createUserWithoutRequiredParameters.createUser(userCredentials);
+        Response actualResponse = operations.login(userCredentials);
         assertEquals(expectedStatusCode, actualResponse.getStatusCode());
         assertEquals(expectedSuccessStatus, actualResponse.getBody().as(CreateOrLoginUserResponse.class).isSuccess());
         assertEquals(expectedResponseMessage, actualResponse.getBody().as(CreateOrLoginUserResponse.class).getMessage());
