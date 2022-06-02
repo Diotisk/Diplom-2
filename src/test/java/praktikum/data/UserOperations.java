@@ -98,4 +98,16 @@ public class UserOperations {
 
     }
 
+    public Response changeData(String accessToken, User changedUserData) {
+
+        Response response = given()
+                .header("Content-Type", "application/json")
+                .header("Authorization", accessToken)
+                .body(changedUserData)
+                .patch("/api/auth/user");
+
+        return response;
+
+    }
+
 }
