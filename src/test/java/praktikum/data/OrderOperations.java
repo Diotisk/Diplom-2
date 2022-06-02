@@ -1,16 +1,12 @@
 package praktikum.data;
 
 import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
-import praktikum.data.IngredientOperations;
 import praktikum.models.CreateOrderRequest;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static io.restassured.RestAssured.given;
 
@@ -81,6 +77,17 @@ public class OrderOperations {
                 .post("/api/orders");
 
         return response;
+    }
+
+    public Response getUserOrders(String accessToken) {
+
+        Response response = given()
+                .header("Content-Type", "application/json")
+                .header("Authorization", accessToken)
+                .get("/api/orders");
+
+        return response;
+
     }
 
 }
