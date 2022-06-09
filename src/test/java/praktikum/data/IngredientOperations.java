@@ -1,10 +1,12 @@
 package praktikum.data;
 
+import io.qameta.allure.internal.shadowed.jackson.annotation.JsonProperty;
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import org.junit.Before;
+import org.junit.Test;
 import praktikum.models.IngredientDescription;
 import praktikum.models.IngredientsResponse;
 
@@ -28,7 +30,7 @@ public class IngredientOperations {
 
         for (IngredientDescription ingredient :
                 response.getBody().as(IngredientsResponse.class).getData()) {
-            ingredientIds.add(ingredient.get_id());
+            ingredientIds.add(ingredient.getId());
         }
 
         return ingredientIds;

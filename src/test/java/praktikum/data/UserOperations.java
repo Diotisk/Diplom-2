@@ -1,6 +1,8 @@
 package praktikum.data;
 
 import io.restassured.RestAssured;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;

@@ -1,8 +1,11 @@
 package praktikum.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class IngredientDescription {
 
-    private final String _id;
+    @SerializedName("_id")
+    private final String id;
     private final String name;
     private final String type;
     private final int proteins;
@@ -11,15 +14,18 @@ public class IngredientDescription {
     private final int calories;
     private final int price;
     private final String image;
-    private final String image_mobile;
-    private final String image_large;
-    private final int __v;
+    @SerializedName("image_mobile")
+    private final String imageMobile;
+    @SerializedName("image_large")
+    private final String imageLarge;
+    @SerializedName("v")
+    private final int v;
 
-    public IngredientDescription(String _id, String name, String type, int proteins,
+    public IngredientDescription(String id, String name, String type, int proteins,
                                  int fat, int carbohydrates, int calories, int price,
-                                 String image, String image_mobile, String image_large,
-                                 int __v) {
-        this._id = _id;
+                                 String image, String imageMobile, String imageLarge,
+                                 int v) {
+        this.id = id;
         this.name = name;
         this.type = type;
         this.proteins = proteins;
@@ -28,13 +34,14 @@ public class IngredientDescription {
         this.calories = calories;
         this.price = price;
         this.image = image;
-        this.image_mobile = image_mobile;
-        this.image_large = image_large;
-        this.__v = __v;
+        this.imageMobile = imageMobile;
+        this.imageLarge = imageLarge;
+        this.v = v;
     }
 
-    public String get_id() {
-        return _id;
+    @SerializedName("_id")
+    public String getId() {
+        return id;
     }
 
     public String getName() {
@@ -69,15 +76,18 @@ public class IngredientDescription {
         return image;
     }
 
-    public String getImage_mobile() {
-        return image_mobile;
+    @SerializedName("image_mobile")
+    public String getImageMobile() {
+        return imageMobile;
     }
 
-    public String getImage_large() {
-        return image_large;
+    @SerializedName("image_large")
+    public String getImageLarge() {
+        return imageLarge;
     }
 
-    public int get__v() {
-        return __v;
+    @SerializedName("__v")
+    public int getV() {
+        return v;
     }
 }

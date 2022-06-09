@@ -1,15 +1,14 @@
 package praktikum.tests;
 
+import io.qameta.allure.internal.shadowed.jackson.annotation.JsonCreator;
+import io.qameta.allure.internal.shadowed.jackson.databind.annotation.JsonDeserialize;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Before;
 import org.junit.Test;
 import praktikum.data.OrderOperations;
 import praktikum.data.UserOperations;
-import praktikum.models.CreateOrLoginUserResponse;
-import praktikum.models.CreateOrderResponse;
-import praktikum.models.OrderNumber;
-import praktikum.models.User;
+import praktikum.models.*;
 
 import static org.junit.Assert.*;
 
